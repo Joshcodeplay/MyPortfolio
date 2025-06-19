@@ -1,0 +1,205 @@
+/* style.css */
+
+/* Ensure the body takes full height and has no margin */
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    display: flex; /* Added to center align content vertically */
+    justify-content: flex-end; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    background-image: url(log&reg.png);
+    background-size: cover;
+    
+}
+
+/* Style the glassmorphism container */
+.glass-container {
+    display: flex; /* Added for centering content within the container */
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+    height: 450px;
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    border: 1px solid #020202;
+    margin-right: 85px;
+    margin-left: 0px;
+}
+
+
+.glass-container::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(7px);
+    z-index: -1;
+}
+
+.login-box, .register-box {
+    max-width: 500px;
+    text-align: center;
+}
+
+h1 {
+   
+    color: #e0d7d7;
+   font-feature-settings: "abvf";
+   position: relative;
+   font-family: 'Big Shoulders Display', sans-serif;
+   font-weight: bolder;
+   font-size:60px;
+   margin-top: 1px;
+    margin-bottom: 35px;
+    
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+}
+.input-container {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.input-container input {
+    width: 100%;
+    padding:15px 35px 10px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #0f0202;
+}
+
+.input-container .icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: #0a0a0a;
+}
+
+
+input::placeholder {
+    color: #4f0e1b;
+    font-size: 18px;
+                    
+
+}
+
+input:focus {
+    outline: none;
+}
+
+.options {
+    
+    
+    margin-top: 15px;
+    font-size: 15px;
+    color: rgb(38, 32, 32);
+}
+
+.options input {
+    margin-right: 1px;
+    margin-top: 0px;
+}
+
+.options a {
+    text-decoration: line;
+    color: rgba(255, 255, 255, 0.753);
+    margin-left: auto;
+}
+
+button {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    
+    background: #ffffff7e;
+    color: rgba(0, 0, 0, 0.152);
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+button:hover {
+    background: transparent;
+    color: white;
+    outline: 1px solid #fff;
+}
+
+p {
+    font-size: 12px;
+    color: #f5eeee;
+    margin-top: 15px;
+}
+
+#register {
+    text-decoration: line;
+    color: #0a0202;
+    font-weight: bold;
+}
+#login {
+    text-decoration: line;
+    color: #0a0202;
+    font-weight: bold;
+}
+.topnav {
+    background-color: #333;
+    display: flex;
+    justify-content: flex-end;
+    padding: 5px;
+    background-color: #333; /* Example background color */
+    position: fixed; /* Fixes the navbar to the top */
+    top: 0; /* Aligns it to the very top of the page */
+    width: 100%; /* Stretches the navbar across the page */
+    text-align: right; /* Aligns navigation items to the right */
+    z-index: 1000; /* Ensures the navbar is above other content */
+  }
+  
+  /* Style the links inside the navigation bar */
+  .topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 18px 20px;
+    padding-block: 10px;
+    font-size: 19px;
+    text-decoration: none;
+  }
+  
+  /* Change the color of links on hover */
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  /* Add a color to the active/current link */
+  .topnav a.active {
+    background-color: #b53737;
+    color: white;
+  }
+.topnav a.login-nav{
+    background-color: rgb(62, 60, 167);
+}
+.topnav a.register-nav{
+    background-color: rgb(165, 135, 26);
+}
+.topnav a.about-nav{
+    background-color: rgb(19, 149, 34);
+}

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <style>
+         html,body{ 
+            height: 100%;
+            padding: 0;
+            margin:0%;
+        }
+        body {
+            font-family: 'Big shoulder display', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('images/pottery/Kung Fu Tea Cup Pink Sakura Handmade Ceramics.jpeg'); /* Add your background image here */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #fafafa; /* Fallback color */
+        }
+
+        .navbar {
+            background-color: black;
+            padding: 25px;
+            display: flex;
+            align-items: center; /* Vertically center items */
+            justify-content: flex-start; /* Align items to the left */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.785);
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 25px;
+            font-weight: bold;
+            margin: 0; /* Ensure no margin */
+        }
+
+        .navbar a:hover {
+            transition-duration: 0.4s;
+            transform: scale(1.2);
+            color: #D5966C;
+        }
+
+        .profile-container {
+            position: relative;
+            top: 10%;
+            max-width: 800px;
+            margin: auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 1px solid #dbdbdb;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .profile-header {
+            display: flex;
+            padding: 20px;
+            border-bottom: 1px solid #dbdbdb;
+        }
+
+        .profile-picture {
+            flex: 1;
+            max-width: 150px;
+            margin-right: 20px;
+        }
+
+        .profile-picture img {
+            width: 100%;
+            border-radius: 50%;
+        }
+
+        .profile-info {
+            flex: 3;
+            margin-left: 50px;
+        }
+
+        .username {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .stats {
+            margin: 10px 0;
+        }
+
+        .stat {
+            margin-right: 20px;
+        }
+
+        .profile-posts {
+            padding: 20px;
+        }
+
+        #cameraRoll {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .cameraRoll {
+            width: 100%;
+            height: 150px;
+            background-size: cover;
+            border-radius: 10px;
+            overflow: hidden;
+            background-position: center;
+        }
+
+        .add-image-button {
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            background-image: url('images/Plus.png'); /* Add your plus icon image */
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="homefeed.html">ART ARCADE</a>
+    </nav>
+
+    <div class="profile-container">
+        <header class="profile-header">
+            <div class="profile-picture">
+                <img id="profilePic" src="images/pottery/download.jpeg" alt="Profile Picture">
+            </div>
+            <div class="profile-info">
+                <h1 class="username">ClayfulChaos</h1>
+                <div class="stats">
+                    <span class="stat">Posts: <span>5</span></span>
+                    <span class="stat">Followers: 900</span>
+                    <span class="stat">Following: 302</span>
+                </div>
+                <p>Finding serenity in the art of pottery</p> <!-- Manually add bio here -->
+            </div>
+        </header>
+
+        <section class="profile-posts">
+            <div id="cameraRoll">
+                <div class="cameraRoll" style="background-image: url('images/pottery/download.jpeg');"></div>
+                <div class="cameraRoll" style="background-image: url('images/pottery/Kung Fu Tea Cup Pink Sakura Handmade Ceramics.jpeg');"></div>
+                <div class="cameraRoll" style="background-image: url('images/pottery/RH 204 Horse Hair vase.jpeg');"></div>
+                <div class="cameraRoll" style="background-image: url('images/pottery/TERRAIN _04.jpeg');"></div>
+                <div class="cameraRoll" style="background-image: url('images/pottery/Vintage small signed Navajo Indian horse hair pottery vase - white and dense black unique design - collectible unique home decor.jpeg');"></div>
+                <!-- Add more photos as needed -->
+            </div>
+            <button class="add-image-button"></button>
+        </section>
+    </div>
+</body>
+</html>

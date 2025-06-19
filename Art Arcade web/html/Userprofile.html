@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Profile with Camera Upload</title>
+    <style>
+        html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+            body { font-family: 'Big shoulder display', sans-serif;
+
+            background-image: url('back.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #fafafa; /* Fallback color */
+           
+        }
+
+        .navbar {
+            background-color: rgba(0, 0,0, 0.6);
+            padding: 25px;
+            display: flex;
+            align-items: center; /* Vertically center items */
+            justify-content: flex-start; /* Align items to the left */
+            /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.785); */
+        }
+        .navbar:hover{
+            background-color:rgba(0, 0, 0, 0.8);
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 25px;
+            font-weight: bold;
+            margin: 0; /* Ensure no margin */
+        }
+
+        .navbar a:hover {
+            transition-duration: 0.4s;
+            transform: scale(1.2);
+            color: #D5966C;
+        }
+
+        .profile-container {
+            position: relative;
+            top: 10%;
+            left: 390px;
+            max-width: 800px;
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent background */
+            border: 1px solid #dbdbdb;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .profile-header {
+            display: flex;
+            padding: 20px;
+            border-bottom: 1px solid #dbdbdb;
+        }
+
+        .profile-picture {
+            flex: 1;
+            max-width: 150px;
+            margin-right: 20px;
+            position: relative;
+        }
+
+        .profile-picture img {
+            width: 100%;
+            height: auto;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .profile-info {
+            flex: 3;
+            margin-left: 50px; /* Adjusted margin */
+        }
+
+        .username {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .stats {
+            margin: 10px 0;
+        }
+
+        .stat {
+            margin-right: 20px;
+            font-weight: bold;
+        }
+
+        .bio {
+            font-size: 14px;
+            color: #666;
+            margin: 0; /* Remove margin for a cleaner look */
+        }
+
+        .bio-editable {
+            width: 100%;
+            border: none; /* Remove the border */
+            border-radius: 5px;
+            padding: 5px;
+            font-size: 14px;
+            resize: none; /* Prevent resizing */
+            outline: none; /* Hide outline */
+            background-color: transparent; /* Make background transparent */
+            box-shadow: none; /* Ensure no shadow */
+        }
+
+        .profile-posts {
+            padding: 20px;
+            position: relative; /* For absolute positioning of the plus button */
+        }
+
+        #cameraRoll {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+            gap: 15px; /* Increased gap for better spacing */
+        }
+
+        .cameraRoll {
+            width: 100%; /* Use full width of the column */
+            height: 150px; /* Increased height for better appearance */
+            background-size: cover;
+            background-position: center center;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        #main {
+            padding: 20px;
+        }
+
+        #cameraRoll img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .add-image-button {
+            position: absolute; /* Absolute positioning */
+            bottom: 20px; /* Distance from bottom */
+            right: 20px; /* Distance from right */
+            width: 50px; /* Set width */
+            height: 50px; /* Set height */
+            background-image: url('Plus.png'); /* Add your circular plus sign image here */
+            background-size: cover; /* Cover the button */
+            border: none;
+            border-radius: 50%; /* Make it circular */
+            cursor: pointer;
+            outline: none;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="homefeed.html">ART ARCADE</a>
+    </nav>
+
+    <div class="profile-container">
+        <!-- Profile Header -->
+        <header class="profile-header">
+            <div class="profile-picture" onclick="document.getElementById('profileCamera').click();">
+                <img id="profilePic" src="add.jpg" alt="Profile Picture">
+                <input type="file" accept="image/*" id="profileCamera" class="hidden">
+            </div>
+            <div class="profile-info">
+                <h1 class="username">Dev</h1>
+                <div class="stats">
+                    <span class="stat">Posts: <span id="postCount">0</span></span>
+                    <span class="stat">Followers: 0</span>
+                    <span class="stat">Following: 0</span>
+                </div>
+                <textarea id="bio" class="bio-editable" rows="3" oninput="updateBio()" placeholder="About me"></textarea>
+            </div>
+        </header>
+
+        <!-- Profile Posts -->
+        <section class="profile-posts">
+            <div id="main">
+                <input type="file" accept="image/*" capture="camera" id="galleryCamera" class="hidden">
+                <div id="cameraRoll"></div>
+                <button class="add-image-button" onclick="document.getElementById('galleryCamera').click();"></button>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script>
+        var profileCamera = document.getElementById('profileCamera');
+        var galleryCamera = document.getElementById('galleryCamera');
+        var profilePic = document.getElementById('profilePic');
+        var cameraRoll = $("#cameraRoll");
+        var postCount = 0; // Initialize post count
+
+        profileCamera.addEventListener('change', function(e) {
+            var file = e.target.files[0];
+            if (file) {
+                profilePic.src = URL.createObjectURL(file);
+            }
+        });
+
+        galleryCamera.addEventListener('change', function(e) {
+            var files = e.target.files; // Allow multiple files
+            for (var i = 0; i < files.length; i++) {
+                addImageToView(files[i]);
+            }
+        });
+
+        function addImageToView(file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var photo = $('<div></div>');
+                photo.css({
+                    'background-image': "url('" + e.target.result + "')"
+                });
+                photo.addClass('cameraRoll');
+                cameraRoll.prepend(photo);
+
+                postCount++; // Increment post count
+                document.getElementById('postCount').innerText = postCount; // Update displayed post count
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function updateBio() {
+            var bioText = document.getElementById('bio').value;
+            // Here you can implement logic to save the bio if needed
+            console.log("Bio updated:", bioText);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Interactive Grid Layout</title>
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #e9dfdf;
+             overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* Header Styles */
+        header {
+            background: #333;
+            color: #fff;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            height: 60px;
+            
+        }
+        .art { 
+        font-family: 'Big Shoulders Display', sans-serif;
+          font-weight: 800;
+          font-size: x-large;
+          color:#D5966C;
+          padding: 10px;
+
+    }
+        .art a{
+         text-decoration: none;
+         color:#D5966C;
+        }
+        .nav {
+            display: flex;
+            gap: 20px;
+            
+        }
+        .nav a {
+            color: #fff; /* Default color */
+            font-size: large;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease; /* Smooth color transition */
+        }
+        .nav a:hover {
+            color: #000000; /* Color on hover */
+             transform: scale(1.3);
+        }
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .search-bar:hover{
+           color: #000000;
+        }
+        .search-bar input[type="text"] {
+            padding: 8px;
+            border: none;
+            border-radius: 4px;
+        }
+        .search-bar input[type="submit"] {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            background: #D5966C;
+            color: #fff;
+            cursor: pointer;
+        }
+        .filter-dropdown {
+            position: relative;
+        }
+        .filter-dropdown select {
+            padding: 8px;
+            border: none;
+            border-radius: 4px;
+            background: #D5966C;
+            color: #fff;
+            cursor: pointer;
+        }
+        .filter-dropdown select:hover {
+            background: #000000;
+        }
+
+        /* Grid Layout */
+        .container {
+            width: 100%;
+            columns: 5;
+            column-gap: 15px;
+            padding: 15px;
+            margin-top: 60px; /* Adjust for fixed header */
+        }
+        .image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .image-container img {
+            width: 100%;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            transition: transform 0.3s ease; /* Smooth scaling effect */
+        }
+        .image-container:hover img {
+            transform: scale(1.05); /* Slightly zooms in the image */
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); /* Dark background with transparency */
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .image-container:hover .overlay {
+            opacity: 1;
+        }
+        .overlay .actions i {
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .overlay .actions i:hover {
+            color: #D5966C; /* Change color on hover */
+        }
+        .overlay .artist-name {
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+
+.artist-name a{
+    text-decoration: none;
+    color: rgba(252, 252, 252, 0.522);
+}
+.artist-name a button:hover{
+    color: #D5966C;
+}
+
+        /* Lightbox Styles */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        .lightbox-content {
+            position: relative;
+            max-width: 80%; /* Adjust width to fit the screen better */
+            max-height: 80%; /* Adjust height to fit the screen better */
+            background: #fff;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center content vertically */
+            align-items: center; /* Center content horizontally */
+        }
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 60vh; /* Ensure image height fits within 60% of the viewport height */
+            width: auto; /* Maintain aspect ratio */
+            height: auto; /* Maintain aspect ratio */
+        }
+        .lightbox .artist-name {
+            text-decoration: none;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 1.5em;
+            color: #fff;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .lightbox .actions {
+            position: relative; /* Change to relative */
+            bottom: 0; /* Align at the bottom */
+            display: flex;
+            gap: 10px;
+            margin-top: auto; /* Push to the bottom of the white box */
+            margin-left: 220px; /* Shift icons to the right */
+        }
+        .lightbox .actions i {
+            font-size: 25px; /* Make icons bigger */
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class = "art">
+            <a href="homefeed.html">ART ARCADE</a>
+       </div>
+        
+        <nav class="nav">
+            <a href="jobaffair.html" target="_blank">Job Fair</a>
+            <a href="Userprofile.html" target="_blank">Profile</a>
+            <a href="blog.html" target="_blank">Blogs</a>
+            <a href="quests.html" target="_blank">Quests</a>
+        </nav>
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+            <input type="submit" value="Search">
+            <div class="filter-dropdown">
+                <select id="filterSelect">
+                    <option value="All">All</option>
+                    <option value="sketches">Sketches</option>
+                    <option value="paintings">Paintings</option>
+                    <option value="sculptures">Sculptures</option>
+                    <option value="digital">Digital art</option>
+                    <option value="graffiti">Graffiti</option>
+                    <option value="pottery">Pottery</option>
+                    <option value="photography">Photography</option>
+                    <option value="carpentry">Carpentry</option>
+
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <div class="container" id="imageContainer">
+        <!-- Images will be dynamically added here -->
+    </div>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <div class="lightbox-content">
+            <img id="lightboxImage" src="" alt="Large View">
+            <div class="artist-name" id="lightboxArtist"></div>
+            <div class="actions">
+                <i class="fas fa-heart like"></i>
+                <i class="fas fa-comment comment"></i>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const imageData = [
+            { src: 'images/sketches/sketches1.jpg', artist: { name: 'Jarvis Anton', link: 'jarvisprofile.html' }, category: 'sketches' },
+            { src: 'images/paintings/The Dark Arts Of Henrik Uldalen.jpeg', artist: { name: 'BrushStroke', link: 'fakepaint.html' }, category: 'paintings' },
+            { src: 'images/liston/WhatsApp Image 2024-09-20 at 00.29.09_09b62142.jpg', artist: { name: 'Liston Fernandes', link: 'liston.html' }, category: 'digital' },
+            { src: 'images/sculptures/At Home With_ Master Plaster Caster, Peter Hone, Notting Hill.jpeg', artist: { name: 'Reinassance', link: 'fakesculp.html' }, category: 'sculptures' },
+            { src: 'images/digital/digitalfoot.jpeg', artist: { name: 'Joshua Fernandes', link: 'Joshua.html' }, category: 'digital' },
+            { src: 'images/graffiti/Glasgow Artists and their Best Street Art Murals __ The Travel Tester.jpeg', artist: { name: 'UrbanArtist', link: 'fakegraffiti.html' }, category: 'graffiti' },
+            { src: 'images/photography/Cherished memories, everlasting love.jpeg',artist: { name: 'Wanderlens', link: 'fakephotography.html' }, category: 'photography' },
+            { src: 'images/pottery/download.jpeg', artist: { name: 'ClayfulChaos', link: 'fakepotteryprofile.html' }, category: 'pottery' },
+            { src: 'images/carpentary/Soft Geometry in Warm Wood Sculptures by Aleph Geddis.jpeg', artist: { name: 'WoodCraft', link: 'fakecarp.html' }, category: 'carpentry' },
+            { src: 'images/sketches/Stairway to the Gothic Cathedral.jpeg', artist: { name: 'Jarvis Anton', link: 'jarvisprofile.html' }, category: 'sketches' },
+            { src: 'images/liston/WhatsApp Image 2024-09-20 at 00.29.09_b33edc00.jpg', artist: { name: 'Liston Fernandes', link: 'liston.html' }, category: 'digital' },
+
+            { src: 'images/sculptures/Artz Now _ 1670656742340927494.jpeg', artist: { name: 'Reinassance', link: 'fakesculp.html' }, category: 'sculptures' },
+            { src: 'images/digital/[imaginaria] The world as I see it.jpeg', artist: { name: 'Joshua Fernandes', link: 'Joshua.html' }, category: 'digital' },
+            { src: 'images/graffiti/download (1).jpeg', artist: { name: 'UrbanArtist', link: 'fakegraffiti.html' }, category: 'graffiti' },
+            { src: 'images/photography/download.jpeg',artist: { name: 'Wanderlens', link: 'fakephotography.html' }, category: 'photography' },
+            { src: 'images/pottery/Kung Fu Tea Cup Pink Sakura Handmade Ceramics.jpeg', artist:  { name: 'ClayfulChaos', link: 'fakepotteryprofile.html' }, category: 'pottery' },
+            { src: 'images/paintings/download.jpeg', artist: { name: 'BrushStroke', link: 'fakepaint.html' }, category: 'paintings' },
+            { src: 'images/sketches/Jesus.jpg', artist: { name: 'Jarvis Anton', link: 'jarvisprofile.html' }, category: 'sketches' },
+            
+            { src: 'images/carpentary/Alain Mailland.jpeg', artist: { name: 'WoodCraft', link: 'fakecarp.html' }, category: 'carpentry' },
+            { src: 'images/sculptures/Download premium image of Monochrome greek marble sculpture statue black art_  about iphone wallpaper, greek sculpture, greek statue, iphone wallpaper dark, and greek statues wallpaper 13013058.jpeg', artist: { name: 'Reinassance', link: 'fakesculp.html' }, category: 'sculptures' },
+            { src: 'images/digital/Advance , focus & shoot.jpeg', artist: { name: 'Joshua Fernandes', link: 'Joshua.html' }, category: 'digital' },
+            { src: 'images/graffiti/download.jpeg', artist: { name: 'UrbanArtist', link: 'fakegraffiti.html' }, category: 'graffiti' },
+            { src: 'images/photography/🤍 @simplecla.jpeg', artist: { name: 'Wanderlens', link: 'fakephotography.html' }, category: 'photography' },
+            { src: 'images/pottery/RH 204 Horse Hair vase.jpeg', artist:  { name: 'ClayfulChaos', link: 'fakepotteryprofile.html' }, category: 'pottery' },
+            { src: 'images/carpentary/Chess knight.jpeg', artist: { name: 'WoodCraft', link: 'fakecarp.html' }, category: 'carpentry' },
+            { src: 'images/paintings/piano.jpeg', artist: { name: 'BrushStroke', link: 'fakepaint.html' }, category: 'paintings' },
+            { src: 'images/liston/WhatsApp Image 2024-09-20 at 00.29.09_6414f7e3.jpg', artist: { name: 'Liston Fernandes', link: 'liston.html' }, category: 'digital' },
+            { src: 'images/sketches/IMG20230611232941.jpg', artist: { name: 'Jarvis Anton', link: 'jarvisprofile.html' }, category: 'sketches' },
+            { src: 'images/sketches/IMG_20231008_171912.jpg', artist: { name: 'Jarvis Anton', link: 'jarvisprofile.html' }, category: 'sketches' },
+            { src: 'images/sculptures/download.jpeg', artist: { name: 'Reinassance', link: 'fakesculp.html' }, category: 'sculptures' },
+            { src: 'images/digital/Digital Art and Renaissance Statues_ An Unlikely Combination That Actually Works! _ Seni yunani, Patung ukiran, Seni modern.jpeg', artist: { name: 'Joshua Fernandes', link: 'Joshua.html' }, category: 'digital' },
+            { src: 'images/graffiti/Graffiti Yard - Limited Edition of 6 Photography by Rebecca Skinner _ Saatchi Art.jpeg', artist: { name: 'UrbanArtist', link: 'fakegraffiti.html' }, category: 'graffiti' },
+            { src: 'images/photography/download (2).jpeg',artist: { name: 'Wanderlens', link: 'fakephotography.html' }, category: 'photography' },
+            { src: 'images/pottery/TERRAIN _04.jpeg', artist:  { name: 'ClayfulChaos', link: 'fakepotteryprofile.html' }, category: 'pottery' },
+            { src: 'images/paintings/_Minimalist Marvels_ Simple and Beautiful Wall Art Statements_ _Mystical Murmurs_ Ethereal Wall Art.jpeg', artist: { name: 'BrushStroke', link: 'fakepaint.html' }, category: 'paintings' },
+            { src: 'images/sculptures/Untitled.jpeg', artist: { name: 'Reinassance', link: 'fakesculp.html' }, category: 'sculptures' },
+            { src: 'images/carpentary/FODORY_com.jpeg', artist: { name: 'WoodCraft', link: 'fakecarp.html' }, category: 'carpentry' },
+
+            { src: 'images/digital/Digital collage 1.jpeg', artist: { name: 'Joshua Fernandes', link: 'Joshua.html' }, category: 'digital' },
+            { src: 'images/graffiti/Pin oleh 🪐🪐🪐 di Мои сохраненные материалы _ Seni jalanan, Wallpaper kupu-kupu, Tipografi jepang.jpeg', artist: { name: 'UrbanArtist', link: 'fakegraffiti.html' }, category: 'graffiti' },
+            { src: 'images/photography/Interesting Photo of the Day_ Mount St_ Helens Focus Stack.jpeg',artist: { name: 'Wanderlens', link: 'fakephotography.html' }, category: 'photography' },
+            { src: 'images/pottery/Vintage small signed Navajo Indian horse hair pottery vase - white and dense black unique design - collectible unique home decor.jpeg',artist: { name: 'ClayfulChaos', link: 'fakepotteryprofile.html' }, category: 'pottery' },
+            { src: 'images/sketches/IMG20230408143944.jpg', artist: { name: 'Jarvis Anton', link: 'fakepotteryprofile.html' }, category: 'sketches' },
+            { src: 'images/sculptures/Resin Grim Reaper Sculpture Art Decorative Desk Figure Ornaments Mysterious Man Sitting for Home Desktop Decoration.jpeg', artist: { name: 'Reinassance', link: 'fakesculp.html' }, category: 'sculptures' },
+
+        ];
+
+        const container = document.getElementById('imageContainer');
+        const filterSelect = document.getElementById('filterSelect');
+
+        function renderImages(filter = 'all') {
+            container.innerHTML = ''; // Clear previous images
+            imageData
+                .filter(image => filter === 'all' || image.category === filter)
+                .forEach(({ src, artist }) => {
+                    const div = document.createElement('div');
+                    div.className = 'image-container';
+                    div.innerHTML = `
+                        <img src="${src}" alt="${artist.name}" data-src="${src}">
+                        <div class="overlay">
+                            <div class="actions">
+                               <i class="fas fa-heart like"></i>
+                                <i class="fas fa-comment comment"></i>
+                            </div>
+                            <div class="artist-name"><a href="${artist.link}" target="_blank">${artist.name}</a></div>
+                        </div>
+                    `;
+                    div.addEventListener('click', () => {
+                        document.getElementById('lightboxImage').src = src;
+                        document.getElementById('lightboxArtist').textContent = artist.name;
+                        document.getElementById('lightbox').style.display = 'flex';
+                    });
+                    container.appendChild(div);
+                });
+        }
+
+        // Initial Render
+        renderImages();
+
+        // Filter Event Listener
+        filterSelect.addEventListener('change', () => {
+            const filter = filterSelect.value;
+            renderImages(filter);
+        });
+
+        // Lightbox Close
+        document.getElementById('lightbox').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) {
+                e.currentTarget.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

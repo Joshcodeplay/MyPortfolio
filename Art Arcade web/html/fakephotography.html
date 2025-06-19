@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <style>
+         html,body{ 
+            height: 100%;
+            padding: 0;
+            margin:0%;
+        }
+        body {
+            font-family: 'Big shoulder display', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('images/photography/🤍 @simplecla.jpeg'); /* Add your background image here */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #fafafa; /* Fallback color */
+        }
+
+        .navbar {
+            background-color: black;
+            padding: 25px;
+            display: flex;
+            align-items: center; /* Vertically center items */
+            justify-content: flex-start; /* Align items to the left */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.785);
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 25px;
+            font-weight: bold;
+            margin: 0; /* Ensure no margin */
+        }
+
+        .navbar a:hover {
+            transition-duration: 0.4s;
+            transform: scale(1.2);
+            color: #D5966C;
+        }
+
+        .profile-container {
+            position: relative;
+            top: 10%;
+            max-width: 800px;
+            margin: auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 1px solid #dbdbdb;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .profile-header {
+            display: flex;
+            padding: 20px;
+            border-bottom: 1px solid #dbdbdb;
+        }
+
+        .profile-picture {
+            flex: 1;
+            max-width: 150px;
+            margin-right: 20px;
+        }
+
+        .profile-picture img {
+            width: 100%;
+            border-radius: 50%;
+        }
+
+        .profile-info {
+            flex: 3;
+            margin-left: 50px;
+        }
+
+        .username {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .stats {
+            margin: 10px 0;
+        }
+
+        .stat {
+            margin-right: 20px;
+        }
+
+        .profile-posts {
+            padding: 20px;
+        }
+
+        #cameraRoll {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .cameraRoll {
+            width: 100%;
+            height: 150px;
+            background-size: cover;
+            border-radius: 10px;
+            overflow: hidden;
+            background-position: center;
+        }
+
+        .add-image-button {
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            background-image: url('images/Plus.png'); /* Add your plus icon image */
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="homefeed.html">ART ARCADE</a>
+    </nav>
+
+    <div class="profile-container">
+        <header class="profile-header">
+            <div class="profile-picture">
+                <img id="profilePic" src="images/photography/Here Are The Finalists For The Urban Photo Awards 2021 (30 Pics).jpeg" alt="Profile Picture">
+            </div>
+            <div class="profile-info">
+                <h1 class="username">Wanderlens</h1>
+                <div class="stats">
+                    <span class="stat">Posts: <span>7</span></span>
+                    <span class="stat">Followers: 750</span>
+                    <span class="stat">Following: 282</span>
+                </div>
+                <p>Fine Art Photographer
+                    Capturing raw emotion & urban landscapes</p> <!-- Manually add bio here -->
+            </div>
+        </header>
+
+        <section class="profile-posts">
+            <div id="cameraRoll">
+                <div class="cameraRoll" style="background-image: url('images/photography/🤍 @simplecla.jpeg');"></div>
+                <div class="cameraRoll" style="background-image: url('images/photography/Cherished memories, everlasting love.jpeg');"></div>
+                <div class="cameraRoll" style="background-image: url('images/photography/download (1).jpeg');"></div>
+                <div class="cameraRoll" style="background-image: url('images/photography/download (2).jpeg');"></div>
+                <div class="cameraRoll" style="background-image: url('images/photography/download.jpeg');"></div>
+                <div class="cameraRoll" style="background-image: url('images/photography/Here Are The Finalists For The Urban Photo Awards 2021 (30 Pics).jpeg');"></div>
+                <div class="cameraRoll" style="background-image: url('images/photography/Interesting Photo of the Day_ Mount St_ Helens Focus Stack.jpeg');"></div>
+                <!-- Add more photos as needed -->
+            </div>
+            <button class="add-image-button"></button>
+        </section>
+    </div>
+</body>
+</html>

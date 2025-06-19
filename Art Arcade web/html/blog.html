@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <title>Blog Website</title>
+    <style>
+         body {
+            font-family: 'Big Shoulders Display', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #e9dfdf;
+        }
+
+        header {
+            background-color: #333;
+            color: rgb(250, 250, 250);
+            text-transform: uppercase;
+            padding: 10px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.785);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo:hover {
+            transition-duration: 0.4s;
+            transform: scale(1.2);
+            color: #D5966C;
+        }
+
+        #createPostBtn {
+            background-color: #D5966C;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-right: 100px;
+        }
+
+        #createPostBtn:hover {
+            background-color: #000000;
+            transform: scale(1.05);
+        }
+
+        main {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 80px 5% 50px;
+            margin-top: 80px;
+        }
+
+        .post-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .post-box {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    max-width: 100%;
+    overflow: hidden;
+    word-wrap: break-word;
+    word-break: break-word;
+    box-sizing: border-box;
+    margin-bottom: 20px; /* Adds space between posts */
+}
+
+        .post-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .category {
+            background-color: #D5966C;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .post-title {
+            color: #333;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .post-title:hover {
+            color: #f9f9f9;
+            transform: scale(1.03);
+        }
+        .art { 
+          font-family: 'Big Shoulder Display', sans-serif;
+          font-size: xx-large;
+          color: #D5966C;
+
+    }
+
+        .post-date {
+            color: #777;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .post-description {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .load-more {
+            display: inline-block;
+            color: #000000;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .load-more:hover {
+            color: #D5966C;
+            transform: scale(1.03);
+        }
+
+        .delete-post {
+            background-color: #000000;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .delete-post:hover {
+            background-color: #D5966C;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        
+        .modal-content {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: auto; /* Ensure overflow handling */
+        }
+
+        #detailDescription {
+            white-space: normal; /* Ensure text wraps */
+            overflow: visible;  /* Ensure overflow is visible */
+            text-overflow: unset; /* Remove ellipsis if used */
+            word-wrap: break-word; /* Break long words */
+            word-break: break-word; /* Break long words */
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            color: #333;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close:hover {
+            color: #e74c3c;
+        }
+
+        .postSubmitBtn {
+            background-color: #D5966C;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        .postSubmitBtn:hover {
+            background-color: #000000;
+        }
+
+        .post-message {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #000000;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            z-index: 1000;
+            border-radius: 5px;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .post-container {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1 class="logo">
+            <a href="homefeed.html" style="text-decoration: none; color: inherit;">ART ARCADE</a>
+     </h1>
+        <button id="createPostBtn">Create Post</button>
+    </header>
+
+    <main>
+        <div class="post-container">
+            <!-- Example post elements can be dynamically added here -->
+        </div>
+
+        <!-- Create Post Modal -->
+        <div id="createPostModal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="closeModal">&times;</span>
+                <h2>Create a New Post</h2>
+                <form id="postForm">
+                    <div style="width: 100%; margin-bottom: 15px;">
+                        <label for="postTitle">Title</label>
+                        <input type="text" id="postTitle" name="postTitle" autocomplete="off" required style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd;">
+                    </div>
+                    <div style="width: 100%; margin-bottom: 15px;">
+                        <label for="postCategory">Category</label>
+                        <input type="text" id="postCategory" name="postCategory" autocomplete="off" required style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd;">
+                    </div>
+                    <div style="width: 100%; margin-bottom: 15px;">
+                        <label for="postDescription">Description</label>
+                        <textarea id="postDescription" name="postDescription" autocomplete="off" required style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd; height: 150px;"></textarea>
+                    </div>
+                    <button type="submit" id="postSubmitBtn" class="postSubmitBtn">Post</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Detail Modal -->
+        <div id="postDetailModal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="closeDetailModal">&times;</span>
+                <h1 id="detailTitle"></h1>
+                <span id="detailDate"></span>
+                <p id="detailDescription"></p>
+            </div>
+        </div>
+
+        <div id="postCreatedMessage" class="post-message">
+            Post created successfully!
+        </div>
+    </main>
+
+    <script>
+     document.addEventListener('DOMContentLoaded', function () {
+            const createPostBtn = document.getElementById('createPostBtn');
+            const createPostModal = document.getElementById('createPostModal');
+            const closeModal = document.getElementById('closeModal');
+            const postForm = document.getElementById('postForm');
+            const postSubmitBtn = document.getElementById('postSubmitBtn');
+            const postContainer = document.querySelector('.post-container');
+            const postDetailModal = document.getElementById('postDetailModal');
+            const closeDetailModal = document.getElementById('closeDetailModal');
+            const detailTitle = document.getElementById('detailTitle');
+            const detailDate = document.getElementById('detailDate');
+            const detailDescription = document.getElementById('detailDescription');
+
+            createPostBtn.addEventListener('click', function () {
+                createPostModal.style.display = 'flex';
+            });
+
+            closeModal.addEventListener('click', function () {
+                createPostModal.classList.add('fadeOut');
+                setTimeout(() => {
+                    createPostModal.style.display = 'none';
+                    createPostModal.classList.remove('fadeOut');
+                }, 500);
+            });
+
+            postForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const postCategory = document.getElementById('postCategory').value;
+                const postTitle = document.getElementById('postTitle').value;
+                const postDescription = document.getElementById('postDescription').value;
+
+                if (postCategory.trim() === '' || postTitle.trim() === '' || postDescription.trim() === '') {
+                    alert('Please fill out all fields.');
+                    return;
+                }
+
+                const currentDate = new Date();
+                const day = currentDate.getDate();
+                const month = currentDate.toLocaleString('default', { month: 'short' });
+                const year = currentDate.getFullYear();
+                const formattedDate = day + ' ' + month + ' ' + year;
+
+                const postData = {
+                    title: postTitle,
+                    category: postCategory,
+                    description: postDescription
+                };
+
+                fetch('save_post.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(postData),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const newPost = document.createElement('div');
+                        newPost.className = 'post-box';
+                        newPost.innerHTML = `
+                            <h1 class="post-title" data-title="${postTitle}" data-date="${formattedDate}" data-description="${postDescription}">
+                            ${postTitle}</h1>
+                            <h2 class="category">${postCategory}</h2>
+                            <span class="post-date">${formattedDate}</span>
+                            <p class="post-description">
+                            ${postDescription.substring(0, 100)}...</p>
+                            <button class="delete-post" data-title="${postTitle}">
+                            Delete</button>
+                            <span class="load-more" data-title="${postTitle}" data-date="${formattedDate}" data-description="${postDescription}">Load more</span>
+                        `;
+
+                        postContainer.insertBefore(newPost, postContainer.firstChild);
+
+                        const postCreatedMessage = document.getElementById('postCreatedMessage');
+                        postCreatedMessage.style.display = 'block';
+
+                        createPostModal.style.display = 'none';
+                        postForm.reset();
+
+                        setTimeout(() => {
+                            postCreatedMessage.style.display = 'none';
+                        }, 3000);
+                    } else {
+                        alert('Failed to create post. Please try again.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error creating post:', error);
+                    alert('An error occurred while creating the post. Please try again.');
+                });
+            });
+
+            postContainer.addEventListener('click', function (event) {
+                if (event.target.classList.contains('load-more') || event.target.classList.contains('post-title')) {
+                    const title = event.target.getAttribute('data-title');
+                    const date = event.target.getAttribute('data-date');
+                    const description = event.target.getAttribute('data-description');
+
+                    detailTitle.textContent = title;
+                    detailDate.textContent = date;
+                    detailDescription.textContent = description;
+
+                    // Reset any text overflow styles
+                    detailDescription.style.whiteSpace = 'normal';
+                    detailDescription.style.overflow = 'visible';
+                    detailDescription.style.textOverflow = 'unset';
+
+                    postDetailModal.style.display = 'flex'; // Show the modal
+                }
+
+                if (event.target.classList.contains('delete-post')) {
+                    const titleToDelete = event.target.getAttribute('data-title');
+                    const postToDelete = document.querySelector(`.post-title[data-title="${titleToDelete}"]`).closest('.post-box');
+
+                    postToDelete.classList.add('fadeOut');
+
+                    setTimeout(() => {
+                        postContainer.removeChild(postToDelete);
+                    }, 500);
+                }
+            });
+
+            closeDetailModal.addEventListener('click', function () {
+                postDetailModal.style.display = 'none'; // Hide the modal
+            });
+        });
+
+
+    </script>
+</body>
+
+</html>

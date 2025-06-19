@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <title>Announcements</title>
+    <style>
+       body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Vertically centers the content */
+            align-items: center; /* Horizontally centers the content */
+            background-color: #e9dfdf;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            width: 100%; /* Full width header */
+            padding: 15px 30px; /* Padding for spacing */
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; /* Aligns logo to the left */
+            position: fixed; /* Keeps the header at the top while scrolling */
+            top: 0;
+            left: 0;
+            z-index: 1000; /* Ensures the header stays on top */
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .art { 
+          font-family: 'Big Shoulder Display', sans-serif;
+          font-size: xx-large;
+          color: #D5966C;
+
+    }
+
+        .logo:hover {
+            transition-duration: 0.4s;
+            transform: scale(1.2);
+            color: #D5966C;
+        }
+        .center-title-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #333;
+            padding: 7px;
+            width: 200px;
+            height: 75px;
+            margin: 200px 0 15px 0; /* Increased top margin for more space below header */
+            background-color: #d89e78aa;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+
+        .center-title {
+            font-size: 48px;
+            font-weight: 600;
+            margin: 50px 0;
+            text-align: center;
+            font-family: 'Big Shoulders Display', sans-serif;
+        }
+        /* Header Styling */
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            letter-spacing: 2px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+
+        .announcement {
+            padding: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .announcement:last-child {
+            border-bottom: none;
+        }
+
+        .announcement-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .announcement-info {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .announcement-description {
+            margin-top: 10px;
+            color: #3a3a3a;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1 class="logo">
+            <a href="homefeed.html" style="text-decoration: none; color: inherit;">ART ARCADE</a>
+     </h1>
+    </header>
+
+    <div class="center-title-box">
+        <div class="center-title">QUESTS</div>
+    </div>
+
+    <!-- Announcement Container -->
+    <div class="container">
+        <!-- Announcement 1 -->
+        <div class="announcement">
+            <div class="announcement-title">Digital Dreams - A Futuristic Vision</div>
+            <div class="announcement-info"><i class="far fa-calendar-alt"></i> 15th Oct 2024</div>
+            <div class="announcement-description">
+                Create a piece of digital art that represents your vision of the future. Use any medium, from 3D modeling 
+                to vector art, and show us your most imaginative ideas.            </div>
+        </div>
+
+        <!-- Announcement 2 -->
+        <div class="announcement">
+            <div class="announcement-title">Street Photography Quest</div>
+            <div class="announcement-info"><i class="far fa-calendar-alt"></i> 1st Nov 2024</div>
+            <div class="announcement-description">
+                Take to the streets and capture the essence of your city. From people to architecture, find the moments that define where you live. Show us the beauty, energy,
+                 or even the challenges of urban life through your lens.            </div>
+        </div>
+
+        <!-- Announcement 3 -->
+        <div class="announcement">
+            <div class="announcement-title">Sculpture Showdown</div>
+            <div class="announcement-info"><i class="far fa-calendar-alt"></i> 23rd Dec 2024 - 3rd Jan 2025</div>
+            <div class="announcement-description">
+                Using any materials you like (clay, wood, metal, recycled items), create a miniature sculpture that can fit in the palm of your hand. 
+                Show us your ability to work on a small scale while still achieving incredible detail and meaning.            </div>
+        </div>
+    </div>
+
+</body>
+</html>
